@@ -1,0 +1,211 @@
+<div class="wrapper"></div>
+
+<!-- Preloader -->
+<!-- <div class="preloader flex-column justify-content-center align-items-center">
+<img class="animation__wobble" src="assets/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+</div> -->
+
+<!-- Navbar -->
+<app-header></app-header>
+<!-- /.navbar -->
+
+<!-- Main Sidebar Container -->
+<app-sidebar></app-sidebar>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Dashboard</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard / Site</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Info boxes -->
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-battery-full"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Battery</span>
+                            <span class="info-box-number">
+                                10
+                                <small>%</small>
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box mb-3">
+                        <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-pallet"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Rectifier</span>
+                            <span class="info-box-number">41,410</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+
+                <!-- fix for small devices only -->
+                <div class="clearfix hidden-md-up"></div>
+
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box mb-3">
+                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-wind"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">ACU</span>
+                            <span class="info-box-number">760</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box mb-3">
+                        <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-building"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Sites</span>
+                            <span class="info-box-number"> {{totalSites|number}}</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+
+            <!-- Row 1 -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- DONUT -->
+                            <apx-chart
+                                [series]="chartOptionsDonutPerSiteCategory.series!"
+                                [chart]="chartOptionsDonutDefault.chart!"
+                                [labels]="chartOptionsDonutPerSiteCategory.labels!"
+                                [responsive]="chartOptionsDonutDefault.responsive!"
+                                [legend]="chartOptionsDonutDefault.legend!"
+                                [colors]="chartOptionsDonutPerSiteCategory.colors!"
+                                [title]="chartOptionsDonutPerSiteCategory.title!">
+                            </apx-chart>
+                            <!-- DONUT -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <apx-chart
+                                [series]="chartOptionsBarPerSiteCategory.series!"
+                                [chart]="chartOptionsBarDefault.chart!"
+                                [dataLabels]="chartOptionsBarDefault.dataLabels!"
+                                [plotOptions]="chartOptionsBarDefault.plotOptions!"
+                                [yaxis]="chartOptionsBarPerSiteCategory.yaxis!"
+                                [legend]="chartOptionsBarDefault.legend!"
+                                [fill]="chartOptionsBarDefault.fill!"
+                                [stroke]="chartOptionsBarDefault.stroke!"
+                                [tooltip]="chartOptionsBarDefault.tooltip!"
+                                [colors]="chartOptionsBarPerSiteCategory.colors!"
+                                [xaxis]="chartOptionsBarPerSiteCategory.xaxis!"
+                            ></apx-chart>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Row 1 -->
+
+            <!-- Row 2 -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- DONUT -->
+                            <apx-chart
+                                [series]="chartOptionsDonutPerRegion.series!"
+                                [chart]="chartOptionsDonutDefault.chart!"
+                                [labels]="chartOptionsDonutPerRegion.labels!"
+                                [responsive]="chartOptionsDonutDefault.responsive!"
+                                [legend]="chartOptionsDonutDefault.legend!"
+                                [colors]="chartOptionsDonutPerRegion.colors!"
+                                [title]="chartOptionsDonutPerRegion.title!">
+                            </apx-chart>
+                            <!-- DONUT -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <apx-chart
+                                [series]="chartOptionsBarPerRegion.series!"
+                                [chart]="chartOptionsBarDefault.chart!"
+                                [dataLabels]="chartOptionsBarDefault.dataLabels!"
+                                [plotOptions]="chartOptionsBarDefault.plotOptions!"
+                                [yaxis]="chartOptionsBarPerRegion.yaxis!"
+                                [legend]="chartOptionsBarDefault.legend!"
+                                [fill]="chartOptionsBarDefault.fill!"
+                                [stroke]="chartOptionsBarDefault.stroke!"
+                                [tooltip]="chartOptionsBarDefault.tooltip!"
+                                [colors]="chartOptionsBarPerRegion.colors!"
+                                [xaxis]="chartOptionsBarPerRegion.xaxis!"
+                            ></apx-chart>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Row 2 -->
+
+
+
+
+        </div><!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
+
+<!-- Main Footer -->
+<!-- <footer class="main-footer">
+<strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+All rights reserved.
+<div class="float-right d-none d-sm-inline-block">
+<b>Version</b> 3.2.0
+</div>
+</footer> -->
+
+<!-- ./wrapper -->
+<router-outlet></router-outlet>

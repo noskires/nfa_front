@@ -1,0 +1,285 @@
+<div class="wrapper"></div>
+
+<!-- Preloader -->
+<!-- <div class="preloader flex-column justify-content-center align-items-center">
+      <img class="animation__wobble" src="assets/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    </div> -->
+
+<!-- Navbar -->
+<app-header></app-header>
+<!-- /.navbar -->
+
+<!-- Main Sidebar Container -->
+<app-sidebar></app-sidebar>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">OSPM</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <select class="btn btn-default">
+                        <option>--SELECT REGION--</option>
+                        <option>NEMM</option>
+                        <option>SWMM</option>
+                        <option selected>NL</option>
+                        <option>SL</option>
+                        <option>VIS</option>
+                        <option>MIN</option>
+                    </select>
+                    &nbsp;
+                    <select class="btn btn-default">
+                        <option>--SELECT DIVISION--</option>
+                        <option>WEST</option>
+                        <option>EAST</option>
+                        <option>CENTRAL</option>
+                    </select>
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">OSPM</li>
+                        <li class="breadcrumb-item active">Division</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+            <!-- Info boxes -->
+            <div class="row">
+
+                <!-- /.col -->
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box mb-3">
+                        <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-arrow-up"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">MTTR</span>
+                            <span class="info-box-number">7.93</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+
+                
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box mb-3">
+                        
+                        <i class="fas fa-ticket"></i>
+                        <i class="fa-solid fas fa-ticket"></i>
+
+                        <span class="info-box-icon bg-success elevation-1"><i class="far fa-bell"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Total Tickets</span>
+                            <span class="info-box-number">6,576</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-thumbs-up"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Completed</span>
+                            <span class="info-box-number">
+                                6,538
+                                <!-- <small>%</small> -->
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box mb-3">
+                        
+                        <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-wrench"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Open</span>
+                            <span class="info-box-number">38</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+
+                <!-- fix for small devices only -->
+                <div class="clearfix hidden-md-up"></div>
+
+                
+            </div>
+            <!-- /.row -->
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart 
+                                [series]="chartOptions.series!" 
+                                [chart]="chartOptions.chart!" 
+                                [yaxis]="chartOptions.yaxis!"
+                                [xaxis]="chartOptions.xaxis!" 
+                                [labels]="chartOptions.labels!" 
+                                [stroke]="chartOptions.stroke!"
+                                [title]="chartOptions.title!" 
+                                [dataLabels]="chartOptions.dataLabels!" 
+                                [fill]="chartOptions.fill!"
+                                [tooltip]="chartOptions.tooltip!">
+                            </apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart
+                                [series]="chartOptionsDivision.series!"
+                                [chart]="chartOptionsDivision.chart!"
+                                [xaxis]="chartOptionsDivision.xaxis!"
+                                [stroke]="chartOptionsDivision.stroke!"
+                                [colors]="chartOptionsDivision.colors!"
+                                [dataLabels]="chartOptionsDivision.dataLabels!"
+                                [legend]="chartOptionsDivision.legend!"
+                                [markers]="chartOptionsDivision.markers!"
+                                [grid]="chartOptionsDivision.grid!"
+                                [yaxis]="chartOptionsDivision.yaxis!"
+                                [title]="chartOptionsDivision.title!"
+                            ></apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <apx-chart
+                                [series]="chartOptionsDonut.series!"
+                                [chart]="chartOptionsDonut.chart!"
+                                [labels]="chartOptionsDonut.labels!"
+                                [legend]="chartOptionsDonut.legend!"
+                                [title]="chartOptionsDonut.title!"
+                                [responsive]="chartOptionsDonut.responsive!"
+                            ></apx-chart>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart
+                            [series]="chartOptionsBar.series!"
+                            [chart]="chartOptionsBar.chart!"
+                            [dataLabels]="chartOptionsBar.dataLabels!"
+                            [plotOptions]="chartOptionsBar.plotOptions!"
+                            [yaxis]="chartOptionsBar.yaxis!"
+                            [legend]="chartOptionsBar.legend!"
+                            [fill]="chartOptionsBar.fill!"
+                            [stroke]="chartOptionsBar.stroke!"
+                            [tooltip]="chartOptionsBar.tooltip!"
+                            [xaxis]="chartOptionsBar.xaxis!"
+                            [title]="chartOptionsBar.title!"
+                          ></apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- <apx-chart
+                                [series]="chartOptionsStackLine.series!"
+                                [chart]="chartOptionsStackLine.chart!"
+                                [xaxis]="chartOptionsStackLine.xaxis!"
+                                [dataLabels]="chartOptionsStackLine.dataLabels!"
+                                [yaxis]="chartOptionsStackLine.yaxis!"
+                                [colors]="chartOptionsStackLine.colors!"
+                                [legend]="chartOptionsStackLine.legend!"
+                                [fill]="chartOptionsStackLine.fill!"
+                            ></apx-chart> -->
+
+                            <apx-chart
+                                [series]="chartOptionsGroupBar.series!"
+                                [chart]="chartOptionsGroupBar.chart!"
+                                [dataLabels]="chartOptionsGroupBar.dataLabels!"
+                                [plotOptions]="chartOptionsGroupBar.plotOptions!"
+                                [xaxis]="chartOptionsGroupBar.xaxis!"
+                                [stroke]="chartOptionsGroupBar.stroke!"
+                                [title]="chartOptionsGroupBar.title!"
+                            ></apx-chart>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart
+                                [series]="chartOptionsStackBar.series!"
+                                [chart]="chartOptionsStackBar.chart!"
+                                [dataLabels]="chartOptionsStackBar.dataLabels!"
+                                [plotOptions]="chartOptionsStackBar.plotOptions!"
+                                [xaxis]="chartOptionsStackBar.xaxis!"
+                                [stroke]="chartOptionsStackBar.stroke!"
+                                [fill]="chartOptionsStackBar.fill!"
+                                [title]="chartOptionsStackBar.title!"
+                                [tooltip]="chartOptionsStackBar.tooltip!"
+                                [legend]="chartOptionsStackBar.legend!"
+                            ></apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div><!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
+
+<!-- Main Footer -->
+<!-- <footer class="main-footer">
+<strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+All rights reserved.
+<div class="float-right d-none d-sm-inline-block">
+    <b>Version</b> 3.2.0
+</div>
+</footer> -->
+
+<!-- ./wrapper -->
+<router-outlet></router-outlet>

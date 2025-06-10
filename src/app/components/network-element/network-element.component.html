@@ -1,0 +1,764 @@
+<div class="wrapper"></div>
+
+    <!-- Preloader -->
+    <!-- <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__wobble" src="assets/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    </div> -->
+
+    <!-- Navbar -->
+    <app-header></app-header>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <app-sidebar></app-sidebar>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+            <h1 class="m-0">Network Element</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Network Element</li>
+            </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                  
+                        <div class="card-body">
+                            <div class="tab-content"> 
+                                <button type="button" class="btn btn-sm btn-primary" (click)="add(addNeModal)"><i class="fa fa-plus-square" aria-hidden="true"></i> ADD NEW</button>  &nbsp;
+                                <button type="button" class="btn btn-sm btn-success" (click)="downloadFile('export', 'Network Elements List')"><i class="fa fa-download" aria-hidden="true"></i> EXPORT</button>
+                                <br>
+                                <br>
+                                <div class="active tab-pane" id="activity">
+                                    
+                                    <div class="post">
+                                        <table *ngIf="ne !== undefined" datatable [dtOptions]="dtOptions" class="row-border hover" id="dt0" class="table table-striped table-bordered" style="width:100%;">
+                                            <thead>
+                                                <tr>
+                                                <th>Area</th>
+                                                <th>Site</th>
+                                                <th>Code</th>
+                                                <th>Name</th>
+                                                <th>Type</th>
+                                                <th>Status</th>
+                                                <th>Manufacturer</th>
+                                                <th>IP Address</th>
+                                                <th>Software Version</th>
+                                                <th class="text-center">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody *ngIf="ne?.length != 0">
+                                                <tr *ngFor="let ne of ne">
+                                                <td>{{ ne.area_name }}</td>
+                                                <td>{{ ne.site_name }}</td>
+                                                <td>{{ ne.code }}</td>
+                                                <td>{{ ne.name }}</td>
+                                                <td>{{ ne.type_name }}</td>
+                                                <td>{{ ne.status }}</td>
+                                                <td>{{ ne.manufacturer_name }}</td>
+                                                <td>{{ ne.device_ip_address }}</td>
+                                                <td>{{ ne.software_version }}</td>
+                                                <td class="text-center">
+                                                    <a  [routerLink]="" (click)="edit(editNeModal, ne)">&nbsp; <i class="fas fa-pencil-alt"> </i> </a> 
+                                                    <a  [routerLink]="" (click)="remove(ne)"> <i class="fas fa-trash-alt"> </i> </a> 
+                                                    <a  [routerLink]="" (click)="view(viewNeModal, ne)"> <i class="fas fa-eye"> </i> </a> 
+                                                </td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody *ngIf="ne?.length == 0">
+                                                <tr>
+                                                    <td colspan="14" class="no-data-available">No data!</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <ng-template #addNeModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title" id="editProfileLabel">Add Network Element</h5>
+            <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    
+            
+        <div class="modal-body">
+            <form [formGroup]="neForm" (ngSubmit)="onSubmitSave()">
+    
+                <div class="row">
+    
+                    <!-- <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Site</label><br>
+                            <ng-select2 formControlName="site_id" [options]="optionsSite" >
+                            </ng-select2>
+                        </div>
+                    </div> -->
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Site</label><br>
+                            <ng-select2 class="form-control" formControlName="site_id" [options]="optionsSite" >
+                            </ng-select2>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Manufacturer</label>
+                            <ng-select2 class="form-control" formControlName="manufacturer" [options]="optionsManufacturer" >
+                            </ng-select2>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>NE Code</label><br>
+                            <input type="text" class="form-control" formControlName="code" id="code" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" formControlName="name" id="name" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Type</label>
+                            <ng-select2 class="form-control" formControlName="type" [options]="optionsSubDomain" >
+                            </ng-select2>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select class="form-control" formControlName="status" id="status" placeholder="Select Status">
+                                <option [value]=null>Select Status</option>
+                                <option value='Active'>Active</option>
+                                <option value='Inactive'>Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>IP Address</label>
+                            <input type="text" class="form-control" formControlName="device_ip_address" id="device_ip_address" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Software Version</label>
+                            <input type="text" class="form-control" formControlName="software_version" id="software_version" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>FOC Asgmt. Uplink 1</label>
+                            <input type="text" class="form-control" formControlName="foc_assignment_uplink1" id="foc_assignment_uplink1" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>FOC Asgmt. Uplink 2</label>
+                            <input type="text" class="form-control" formControlName="foc_assignment_uplink2" id="foc_assignment_uplink2" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>HON Asgmt. Uplink Port 1</label>
+                            <input type="text" class="form-control" formControlName="hon_assignment_uplink_port1" id="hon_assignment_uplink_port1" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>HON Asgmt. Uplink Port 2</label>
+                            <input type="text" class="form-control" formControlName="hon_assignment_uplink_port2" id="hon_assignment_uplink_port2" required="true">
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Date Installed</label>
+                            <input type="date" class="form-control" formControlName="date_installed" id="date_installed" required="true">
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Date Accepted</label>
+                            <input type="date" class="form-control" formControlName="date_accepted" id="date_accepted" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Date Decommissioned</label>
+                            <input type="date" class="form-control" formControlName="date_decommissioned" id="date_decommissioned" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>New Node Name</label>
+                            <input type="text" class="form-control" formControlName="new_node_name" id="new_node_name" required="true">
+                        </div>
+                    </div>
+                    
+                </div>
+    
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm  btn-secondary" (click)="modal.dismiss()">Close</button>
+                    <button type="submit" class="btn btn-sm  btn-primary">Save</button>
+                </div>
+            </form>
+    
+        </div>
+    </ng-template>
+
+    <ng-template #editNeModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title" id="editProfileLabel">Edit NE Details</h5>
+            <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+            
+        <div class="modal-body">
+            <form [formGroup]="neForm" (ngSubmit)="onSubmitUpdate()">
+    
+                <div class="row">
+                
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Site</label><br>
+                            <ng-select2 class="form-control" formControlName="site_id" [data]="defaultSite" [options]="optionsSite" >
+                            </ng-select2>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Manufacturer</label>
+                            <ng-select2 class="form-control" formControlName="manufacturer" [data]="defaultManufacturer" [options]="optionsManufacturer" >
+                            </ng-select2>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>NE Code</label><br>
+                            <input type="text" class="form-control" formControlName="code" id="code" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" formControlName="name" id="name" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Type</label>
+                            <ng-select2 class="form-control" formControlName="type" [data]="defaultSubDomain" [options]="optionsSubDomain" >
+                            </ng-select2>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select class="form-control" formControlName="status" id="status" placeholder="Select Status">
+                                <option [value]=null>Select Status</option>
+                                <option value='Active'>Active</option>
+                                <option value='Inactive'>Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>IP Address</label>
+                            <input type="text" class="form-control" formControlName="device_ip_address" id="device_ip_address" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Software Version</label>
+                            <input type="text" class="form-control" formControlName="software_version" id="software_version" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>FOC Asgmt. Uplink 1</label>
+                            <input type="text" class="form-control" formControlName="foc_assignment_uplink1" id="foc_assignment_uplink1" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>FOC Asgmt. Uplink 2</label>
+                            <input type="text" class="form-control" formControlName="foc_assignment_uplink2" id="foc_assignment_uplink2" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>HON Asgmt. Uplink Port 1</label>
+                            <input type="text" class="form-control" formControlName="hon_assignment_uplink_port1" id="hon_assignment_uplink_port1" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>HON Asgmt. Uplink Port 2</label>
+                            <input type="text" class="form-control" formControlName="hon_assignment_uplink_port2" id="hon_assignment_uplink_port2" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Date Installed</label>
+                            <input type="date" class="form-control" formControlName="date_installed" id="date_installed" required="true">
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Date Accepted</label>
+                            <input type="date" class="form-control" formControlName="date_accepted" id="date_accepted" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Date Decommissioned</label>
+                            <input type="date" class="form-control" formControlName="date_decommissioned" id="date_decommissioned" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>New Node Name</label>
+                            <input type="text" class="form-control" formControlName="new_node_name" id="new_node_name" required="true">
+                        </div>
+                    </div>
+                    
+                </div>
+    
+            
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm  btn-secondary" (click)="modal.dismiss()">Close</button>
+                    <button type="submit" class="btn btn-sm  btn-primary">Save</button>
+                </div>
+            </form>
+    
+        </div>
+    </ng-template>
+
+    <ng-template #viewNeModal let-modal> 
+        <div class="modal-header">
+            <h5 class="modal-title" id="editProfileLabel">NE Profile</h5>
+            <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        
+        <div class="modal-body">
+     
+                <div class="row">
+                    <div class="col-md-3">
+                    
+                        <!-- <div class="card card-primary card-outline">
+                            <div class="card-body box-profile"> -->
+                                <!-- <div class="text-center"> -->
+                                    <!-- <img class="profile-user-img img-fluid img-circle" src="assets/img/nlffos/EBS.png" alt="User profile picture"> -->
+                                <!-- </div> -->
+                                <!-- <h3 class="profile-username text-center">{{user.first_name}} {{user.last_name}}</h3> -->
+                                <!-- <p class="text-muted text-center"> -->
+                                    <!-- {{user.entity_code}} {{user.employment_status}} <br>
+                                    {{user.employee_subgroup}} <br>
+                                    {{user.position}}</p> -->
+                                <!-- <p class="text-muted text-center">North Luzon FFOS</p> -->
+                                <!-- <ul class="list-group list-group-unbordered mb-3" style="font-size: 12px;">
+                                    <li class="list-group-item">
+                                        <b>Date Hired</b> <a class="float-right">12/01/2013</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Date of Birth</b> <a class="float-right">07/29/1992</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Gender</b> <a class="float-right">Male</a>
+                                    </li>
+                                </ul> -->
+                                <!-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> -->
+                            <!-- </div>
+                        
+                        </div> -->
+                        
+                        <!-- <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Basic Info</h3>
+                            </div>
+                            
+                            <div class="card-body">
+                                <strong>Name</strong>: {{neRaw.name}} 
+                                <br>
+                                <strong>Status</strong>: {{neRaw.status}} 
+                                <br>
+                                <strong>Type</strong>: {{neRaw.type_name}} 
+                                <br>
+                                <strong>Manufacturer</strong>: {{neRaw.manufacturer_name}} 
+                                <br>
+                                <strong>Site ID</strong>: {{neRaw.code}} 
+                                <br>
+                                <strong>Site Name</strong>: {{neRaw.site_name}} 
+                                <br>
+            
+          
+                            </div>
+                            
+                        </div> -->
+
+
+                        <!-- Widget: user widget style 2 -->
+                        <div class="card card-widget widget-user-2">
+                            <!-- Add the bg color to the header using any of the bg-* classes -->
+                            <div class="widget-user-header bg-warning">
+                            <div class="widget-user-image">
+                                <img class="img-circle elevation-2" src="assets/img/office.png" alt="User Avatar">
+                            </div>
+                            <!-- /.widget-user-image -->
+                            <h4 class="widget-user-username">{{neRaw.name}} </h4>
+                            <!-- <h5 class="widget-user-desc">{{siteRaw.name}} </h5> -->
+                            </div>
+                            <div class="card-footer p-0">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                <a class="nav-link">
+                                    Type <span class="float-right badge bg-primary">{{neRaw.type_name}} </span>
+                                </a>
+                                </li>
+                                <li class="nav-item">
+                                <a class="nav-link">
+                                    Status <span class="float-right badge bg-info">{{neRaw.status}}</span>
+                                </a>
+                                </li>
+                                <li class="nav-item">
+                                <a class="nav-link">
+                                    Manufacturer <span class="float-right badge bg-success">{{neRaw.manufacturer_name}}</span>
+                                </a>
+                                </li>
+                                <li class="nav-item">
+                                <a class="nav-link">
+                                    Site <span class="float-right badge bg-danger">{{neRaw.code}} {{neRaw.site_name}} </span>
+                                </a>
+                                </li>
+                            </ul>
+                            </div>
+                        </div>
+                    <!-- /.widget-user -->
+                    
+                    </div>
+                    
+                    <div class="col-md-9">
+                        <div class="card">
+    
+                            <div class="ribbon-wrapper">
+                                <div class="ribbon bg-info">
+                                  PRIMARY
+                                </div>
+                            </div>
+    
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div class="active tab-pane" id="members">
+    
+                                        <div class="post" *ngIf="filtersLoaded | async">
+                                            <strong><i class="nav-icon fas fa-bolt"></i> DC Panel </strong>
+                                            <!-- <hr> -->
+                                            
+                                            <table class="row-border hover" class="table table-striped table-bordered" style="width:100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Manufacturer</th>
+                                                        <th>DC Panel</th>
+                                                        <th>Breakder No</th>
+                                                        <th>Current</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody *ngIf="neData.dc_panel_item.length>0">
+                                                    <tr>
+                                                        <td [innerHTML]="neData.dc_panel_item[0]?.dc_panel?.manufacturer_name"> </td>
+                                                        <td [innerHTML]="neData.dc_panel_item[0]?.dc_panel?.dc_panel_name"> </td>
+                                                        <td [innerHTML]="neData.dc_panel_item[0]?.breaker_no"> </td>
+                                                        <td [innerHTML]="neData.dc_panel_item[0]?.current"> </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody *ngIf="neData.dc_panel_item.length==0">
+                                                    <tr>
+                                                        <td colspan="4" class="no-data-available text-center">No data available</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+    
+                                        <div class="post" *ngIf="filtersLoaded | async">
+                                            <strong><i class="nav-icon fas fa-pallet"></i> Rectifier </strong>
+                                            <!-- <hr> -->
+                                            <table class="row-border hover" class="table table-striped table-bordered" style="width:100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Manufacturer</th>
+                                                        <th>Rectifier</th>
+                                                        <th>Capacity</th>
+                                                        <th>Model</th>
+                                                        <!-- <th>Maintainer</th> -->
+                                                        <th>Status</th>
+                                                        <th>Date Installed</th>
+                                                        <th>Date Accepted</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody *ngIf="neData.dc_panel_item.length>0">
+                                                    <tr>
+                                                        <td [innerHTML]="neData.dc_panel_item[0]?.dc_panel?.rectifier?.manufacturer_name"> </td>
+                                                        <td [innerHTML]="neData.dc_panel_item[0]?.dc_panel?.rectifier?.rectifier_name"> </td>
+                                                        <td [innerHTML]="neData.dc_panel_item[0]?.dc_panel?.rectifier?.full_capacity"> </td>
+                                                        <td [innerHTML]="neData.dc_panel_item[0]?.dc_panel?.rectifier?.model"> </td>
+                                                        <!-- <td [innerHTML]="neData.dc_panel_item[0]?.dc_panel?.rectifier?.maintainer"> </td> -->
+                                                        <td [innerHTML]="neData.dc_panel_item[0]?.dc_panel?.rectifier?.status"> </td>
+                                                        <td [innerHTML]="neData.dc_panel_item[0]?.dc_panel?.rectifier?.date_installed"> </td>
+                                                        <td [innerHTML]="neData.dc_panel_item[0]?.dc_panel?.rectifier?.date_accepted"> </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody *ngIf="neData.dc_panel_item.length==0">
+                                                    <tr>
+                                                        <td colspan="8" class="no-data-available text-center">No data available</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+    
+                                        <div class="post" *ngIf="filtersLoaded | async">
+                                            <strong><i class="nav-icon fas fa-battery-full"></i> Battery </strong>
+                                            <!-- <hr> -->
+                                            <table class="row-border hover" class="table table-striped table-bordered" style="width:100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Manufacturer</th>
+                                                        <th>Battery</th>
+                                                        <th>Type</th>
+                                                        <th>Capacity</th>
+                                                        <th>Bank</th>
+                                                        <th>Status</th>
+                                                        <th>Date Installed</th>
+                                                        <th>Date Accepted</th>
+                                                    </tr>
+                                                </thead>
+                                                <!-- <tbody *ngIf="neData.dc_panel_item[0]?.dc_panel?.rectifier.length>0"> -->
+                                                <tbody>
+                                                    <tr *ngFor="let battery of neData.dc_panel_item[0]?.dc_panel?.rectifier?.batteries">
+                                                        <td [innerHTML]="battery.manufacturer_name"> </td>
+                                                        <td [innerHTML]="battery.battery_name"> </td>
+                                                        <td [innerHTML]="battery.type"> </td>
+                                                        <td [innerHTML]="battery.capacity"> </td>
+                                                        <td [innerHTML]="battery.bank"> </td>
+                                                        <td [innerHTML]="battery.status"> </td>
+                                                        <td [innerHTML]="battery.date_installed"> </td>
+                                                        <td [innerHTML]="battery.date_accepted"> </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody *ngIf="neData.dc_panel_item[0]?.dc_panel?.rectifier.length==0">
+                                                    <tr>
+                                                        <td colspan="8" class="no-data-available text-center">No data available</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            
+                            </div>
+                        </div>
+    
+    
+                        <div class="card" *ngIf="filtersLoaded | async" >
+    
+    
+                            <div class="ribbon-wrapper ribbon-lg" *ngIf="neData.dc_panel_item[1]">
+                                <div class="ribbon bg-info">
+                                  SECONDARY
+                                </div>
+                            </div>
+    
+                            <div class="card-body" *ngIf="neData.dc_panel_item[1]">
+                                <div class="tab-content">
+                                    <div class="active tab-pane" id="members">
+    
+                                        <div class="post">
+                                            <strong><i class="nav-icon fas fa-bolt"></i> DC Panel </strong>
+                                            <!-- <hr> -->
+                                           
+                                            <table class="row-border hover" class="table table-striped table-bordered" style="width:100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Manufacturer</th>
+                                                        <th>DC Panel</th>
+                                                        <th>Breakder No</th>
+                                                        <th>Current</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody *ngIf="neData.dc_panel_item.length>0">
+                                                    <tr>
+                                                        <td [innerHTML]="neData.dc_panel_item[1]?.dc_panel?.manufacturer_name"> </td>
+                                                        <td [innerHTML]="neData.dc_panel_item[1]?.dc_panel?.dc_panel_name"> </td>
+                                                        <td [innerHTML]="neData.dc_panel_item[1]?.breaker_no"> </td>
+                                                        <td [innerHTML]="neData.dc_panel_item[1]?.current"> </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody *ngIf="neData.dc_panel_item.length==0">
+                                                    <tr>
+                                                        <td colspan="4" class="no-data-available text-center">No data available</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+    
+                                        <div class="post" *ngIf="filtersLoaded | async">
+                                            <strong><i class="nav-icon fas fa-pallet"></i> Rectifier </strong>
+                                            <!-- <hr> -->
+                                            <table class="row-border hover" class="table table-striped table-bordered" style="width:100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Manufacturer</th>
+                                                        <th>Rectifier</th>
+                                                        <th>Capacity</th>
+                                                        <th>Model</th>
+                                                        <!-- <th>Maintainer</th> -->
+                                                        <th>Status</th>
+                                                        <th>Date Installed</th>
+                                                        <th>Date Accepted</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody *ngIf="neData.dc_panel_item.length>0">
+                                                    <tr>
+                                                        <td [innerHTML]="neData.dc_panel_item[1]?.dc_panel?.rectifier?.manufacturer_name"> </td>
+                                                        <td [innerHTML]="neData.dc_panel_item[1]?.dc_panel?.rectifier?.rectifier_name"> </td>
+                                                        <td [innerHTML]="neData.dc_panel_item[1]?.dc_panel?.rectifier?.full_capacity"> </td>
+                                                        <td [innerHTML]="neData.dc_panel_item[1]?.dc_panel?.rectifier?.model"> </td>
+                                                        <!-- <td [innerHTML]="neData.dc_panel_item[1]?.dc_panel?.rectifier?.maintainer"> </td> -->
+                                                        <td [innerHTML]="neData.dc_panel_item[1]?.dc_panel?.rectifier?.status"> </td>
+                                                        <td [innerHTML]="neData.dc_panel_item[1]?.dc_panel?.rectifier?.date_installed"> </td>
+                                                        <td [innerHTML]="neData.dc_panel_item[1]?.dc_panel?.rectifier?.date_accepted"> </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody *ngIf="neData.dc_panel_item.length==0">
+                                                    <tr>
+                                                        <td colspan="8" class="no-data-available text-center">No data available</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+    
+                                        <div class="post" *ngIf="filtersLoaded | async">
+                                            <strong><i class="nav-icon fas fa-battery-full"></i> Battery </strong>
+                                            <!-- <hr> -->
+                                            <table class="row-border hover" class="table table-striped table-bordered" style="width:100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Manufacturer</th>
+                                                        <th>Battery</th>
+                                                        <th>Type</th>
+                                                        <th>Capacity</th>
+                                                        <th>Bank</th>
+                                                        <th>Status</th>
+                                                        <th>Date Installed</th>
+                                                        <th>Date Accepted</th>
+                                                    </tr>
+                                                </thead>
+                                                <!-- <tbody *ngIf="neData.dc_panel_item[1]?.dc_panel?.rectifier?.batteries>0"> -->
+                                                <tbody>
+                                                    <tr *ngFor="let battery of neData.dc_panel_item[1]?.dc_panel?.rectifier?.batteries">
+                                                        <td [innerHTML]="battery.manufacturer_name"> </td>
+                                                        <td [innerHTML]="battery.battery_name"> </td>
+                                                        <td [innerHTML]="battery.type"> </td>
+                                                        <td [innerHTML]="battery.capacity"> </td>
+                                                        <td [innerHTML]="battery.bank"> </td>
+                                                        <td [innerHTML]="battery.status"> </td>
+                                                        <td [innerHTML]="battery.date_installed"> </td>
+                                                        <td [innerHTML]="battery.date_accepted"> </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody *ngIf="neData.dc_panel_item[1]?.dc_panel?.rectifier?.batteries==0">
+                                                    <tr>
+                                                        <td colspan="8" class="no-data-available text-center">No data available</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            
+                            </div>
+                        </div>
+    
+                    
+                    </div>
+                
+                </div>
+                
+         
+    
+        </div>
+    </ng-template>
+    
+
+    <app-footer></app-footer>
+<!-- ./wrapper -->
+<router-outlet></router-outlet>

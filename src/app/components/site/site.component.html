@@ -1,0 +1,885 @@
+<div class="wrapper"></div>
+
+    <!-- Preloader -->
+    <!-- <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__wobble" src="assets/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    </div> -->
+
+    <!-- Navbar -->
+    <app-header></app-header>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <app-sidebar></app-sidebar>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+            <h1 class="m-0">Site</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Site</li>
+            </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <button type="button" class="btn btn-sm btn-primary" (click)="add(addSiteModal)"> <i class="fa fa-plus-square" aria-hidden="true"></i> ADD NEW </button> &nbsp;
+                                <button type="button" class="btn btn-sm btn-success" (click)="downloadFile('export', 'Site List')"><i class="fa fa-download" aria-hidden="true"></i> EXPORT</button>
+                                <br>
+                                <br>
+                                <table datatable [dtOptions]="dtOptions" class="row-border hover" class="table table-striped table-bordered" style="width:100%;">
+                                    <thead>
+                                        <tr>
+                                        <th>Area</th>
+                                        <th>Code</th>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th>Category</th>
+                                        <!-- <th>Cabinet Type</th> -->
+                                        <th>Address</th>
+                                        <!-- <th>Region</th>
+                                        <th>Province</th>
+                                        <th>City/Municipality</th>
+                                        <th>Barangay</th>
+                                        <th>Street</th> -->
+                                        <!-- <th>Building</th>
+                                        <th>Exchange</th>
+                                        <th>Electric Company</th>
+                                        <th>Electric SIN</th>
+                                        <th>Electric Meter</th>
+                                        <th>PSS Owner</th> -->
+                                        <th class="text-center">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="model?.length != 0">
+                                        <tr *ngFor="let site of model">
+                                            <td>{{ site.area_name }}</td>
+                                            <td>{{ site.code }}</td>
+                                            <td>{{ site.name }}</td>
+                                            <td>{{ site.status }}</td>
+                                            <td>{{ site.site_category_name }}</td>
+                                            <!-- <td>{{ site.cabinet_type }}</td> -->
+                                            <td>{{ site.address }}</td>
+                                            <!-- <td>{{ site.region }}</td>
+                                            <td>{{ site.province }}</td>
+                                            <td>{{ site.city_municipality }}</td>
+                                            <td>{{ site.barangay }}</td>
+                                            <td>{{ site.street }}</td> -->
+                                            <!-- <td>{{ site.building_name }}</td>
+                                            <td>{{ site.exchange_name }}</td>
+                                            <td>{{ site.electric_company_name }}</td>
+                                            <td>{{ site.electric_company_sin }}</td>
+                                            <td>{{ site.electric_company_meter }}</td>
+                                            <td>{{ site.pss_owner_name }}</td> -->
+                                            <td class="text-center">
+                                                <a [routerLink]="" (click)="edit(editSiteModal, site)">&nbsp; <i class="fas fa-pencil-alt"> </i> </a> 
+                                                <a [routerLink]="" (click)="remove(site)"> <i class="fas fa-trash-alt"> </i> </a>
+                                                <a  [routerLink]="" (click)="view(viewSiteModal, site)"> <i class="fas fa-eye"> </i> </a>  
+                                            </td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
+
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- Popup model -->
+
+    <ng-template #addSiteModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title" id="editProfileLabel">Add Site</h5>
+            <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    
+            
+        <div class="modal-body">
+            <form [formGroup]="siteForm" (ngSubmit)="onSubmitSave()">
+    
+                <div class="row">
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Site Code</label><br>
+                            <input type="text" class="form-control" formControlName="code" id="code" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Site Name</label>
+                            <input type="text" class="form-control" formControlName="name" id="name" required="true">
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Area</label>
+                            <select class="form-control" formControlName="area" id="area" placeholder="Select Area">
+                                <option [value]=null>Select Area</option>
+                                <option value='10000000'>NEMM</option>
+                                <option value='20000000'>SWMM</option>
+                                <option value='30000000'>NL</option>
+                                <option value='40000000'>SL</option>
+                                <option value='50000000'>VIS</option>
+                                <option value='60000000'>MIN</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <!-- <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <ng-select2 class="form-control" formControlName="status" [data]="status" [options]="optionsStatus" >
+                            </ng-select2>
+                        </div>
+                    </div> -->
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select class="form-control" formControlName="status" id="status" placeholder="Select Status">
+                                <option [value]=null>Select Status</option>
+                                <option value='Active'>Active</option>
+                                <option value='Inactive'>Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Category</label>
+                            <ng-select2 class="form-control" formControlName="site_category_id" [options]="optionsSiteCategory" (ngModelChange)="onChange($event)" >
+                            </ng-select2>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Cabinet Type</label>
+                            <input type="text" class="form-control" formControlName="cabinet_type" id="cabinet_type" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Region</label>
+                            <select class="form-control" formControlName="region" (ngModelChange)="onChangeRegion($event)" placeholder="Select Region">
+                                <option [value]=null>Select Region</option>
+                                <option *ngFor="let region of dataRegions" [value]="region.code">{{region.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Province</label>
+                            <select class="form-control" formControlName="province" (ngModelChange)="onChangeProvince($event)" placeholder="Select Province">
+                                <option [value]=null>Select Province</option>
+                                <option *ngFor="let province of dataProvinces" [value]="province.code">{{province.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>City/Municipality</label>
+                            <select class="form-control" formControlName="city_municipality" (ngModelChange)="onChangeCityMunicipality($event)" placeholder="Select Town">
+                                <option [value]=null>Select Town</option>
+                                <option *ngFor="let town of dataTowns" [value]="town.code">{{town.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Brgy</label>
+                            <select class="form-control" formControlName="brgy" placeholder="Select Town">
+                                <option [value]=null>Select Brgy</option>
+                                <option *ngFor="let barangay of dataBarangays" [value]="barangay.code">{{barangay.text}}</option>
+                            </select>
+                        </div>
+                    </div> 
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Street</label>
+                            <input type="text" class="form-control" formControlName="street" id="street" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Lot No.</label>
+                            <input type="text" class="form-control" formControlName="lot_no" id="lot_no" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Longitude</label>
+                            <input type="text" class="form-control" formControlName="longitude" id="longitude" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Latitude</label>
+                            <input type="text" class="form-control" formControlName="latitude" id="latitude" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Building</label>
+                            <ng-select2 class="form-control" formControlName="building_code" [options]="optionsBuilding">
+                            </ng-select2>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Exchange</label>
+                            <ng-select2 class="form-control" formControlName="exchange_code" [options]="optionsExchange">
+                            </ng-select2>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Electric Company</label>
+                            <ng-select2 class="form-control" formControlName="electric_company_code" [options]="optionsElectricCompany">
+                            </ng-select2>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Site Owner</label>
+                            <ng-select2 class="form-control" formControlName="pss_owner_code" [options]="optionsPssOwner">
+                            </ng-select2>
+                        </div>
+                    </div>
+                    
+                </div>
+    
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm  btn-secondary" (click)="modal.dismiss()">Close</button>
+                    <button type="submit" class="btn btn-sm  btn-primary">Save</button>
+                </div>
+            </form>
+    
+        </div>
+    </ng-template>
+
+    <ng-template #editSiteModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title" id="editProfileLabel">Edit Site Details</h5>
+            <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+            
+        <div class="modal-body">
+            <form [formGroup]="siteForm" (ngSubmit)="onSubmitUpdate()">
+    
+                <div class="row">
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Site Code</label><br>
+                            <input type="text" class="form-control" formControlName="code" id="code" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Site Name</label>
+                            <input type="text" class="form-control" formControlName="name" id="name" required="true">
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Area</label>
+                            <select class="form-control" formControlName="area" id="area" placeholder="Select Area">
+                                <option [value]=null>Select Area</option>
+                                <option value='10000000'>NEMM</option>
+                                <option value='20000000'>SWMM</option>
+                                <option value='30000000'>NL</option>
+                                <option value='40000000'>SL</option>
+                                <option value='50000000'>VIS</option>
+                                <option value='60000000'>MIN</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <!-- <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <ng-select2 class="form-control" formControlName="status" [data]="status" [options]="optionsStatus" >
+                            </ng-select2>
+                        </div>
+                    </div> -->
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select class="form-control" formControlName="status" id="status" placeholder="Select Status">
+                                <option [value]=null>Select Status</option>
+                                <option value='Active'>Active</option>
+                                <option value='Inactive'>Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Category</label>
+                            <ng-select2 class="form-control" formControlName="site_category_id" [data]="defaultValueSiteCategory" [options]="optionsSiteCategory" >
+                            </ng-select2>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Cabinet Type</label>
+                            <input type="text" class="form-control" formControlName="cabinet_type" id="cabinet_type" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Region</label>
+                            <select class="form-control" formControlName="region" (ngModelChange)="onChangeRegion($event)" placeholder="Select Region">
+                                <option [value]=null>Select Region</option>
+                                <option *ngFor="let region of dataRegions" [value]="region.code">{{region.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Province</label>
+                            <select class="form-control" formControlName="province" (ngModelChange)="onChangeProvince($event)" placeholder="Select Province">
+                                <option [value]=null>Select Province</option>
+                                <option *ngFor="let province of dataProvinces" [value]="province.code">{{province.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>City/Municipality</label>
+                            <select class="form-control" formControlName="city_municipality" (ngModelChange)="onChangeCityMunicipality($event)" placeholder="Select Town">
+                                <option [value]=null>Select Town</option>
+                                <option *ngFor="let town of dataTowns" [value]="town.code">{{town.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Brgy</label>
+                            <select class="form-control" formControlName="brgy" placeholder="Select Town">
+                                <option [value]=null>Select Brgy</option>
+                                <option *ngFor="let barangay of dataBarangays" [value]="barangay.code">{{barangay.text}}</option>
+                            </select>
+                        </div>
+                    </div> 
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Street</label>
+                            <input type="text" class="form-control" formControlName="street" id="street" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Lot No.</label>
+                            <input type="text" class="form-control" formControlName="lot_no" id="lot_no" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Longitude</label>
+                            <input type="text" class="form-control" formControlName="longitude" id="longitude" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Latitude</label>
+                            <input type="text" class="form-control" formControlName="latitude" id="latitude" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Building</label>
+                            <ng-select2 class="form-control" formControlName="building_code" [data]="defaultValueBuilding" [options]="optionsBuilding">
+                            </ng-select2>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Exchange</label>
+                            <ng-select2 class="form-control" formControlName="exchange_code" [data]="defaultValueExchange" [options]="optionsExchange">
+                            </ng-select2>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Electric Company</label>
+                            <ng-select2 class="form-control" formControlName="electric_company_code" [data]="defaultValueElectricCompany" [options]="optionsElectricCompany">
+                            </ng-select2>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Site Owner</label>
+                            <ng-select2 class="form-control" formControlName="pss_owner_code" [data]="defaultValuePssOwner"  [options]="optionsPssOwner">
+                            </ng-select2>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm  btn-secondary" (click)="modal.dismiss()">Close</button>
+                    <button type="submit" class="btn btn-sm  btn-primary">Save</button>
+                </div>
+            </form>
+    
+        </div>
+    </ng-template>
+
+    <ng-template #viewSiteModal let-modal> 
+        <div class="modal-header">
+            <h5 class="modal-title" id="editProfileLabel">Site Profile</h5>
+            <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        
+        <div class="modal-body">
+     
+                <div class="row">
+                    <div class="col-md-3">
+                    
+                        <!-- <div class="card card-primary card-outline"> -->
+                            <!-- <div class="card-body box-profile">
+                                <div class="text-center"> -->
+                                    <!-- <img class="profile-user-img img-fluid img-circle" src="assets/img/nlffos/EBS.png" alt="User profile picture"> -->
+                                <!-- </div> -->
+                                <!-- <h3 class="profile-username text-center">{{user.first_name}} {{user.last_name}}</h3> -->
+                                <!-- <p class="text-muted text-center"> -->
+
+                                    <!-- <img src="assets/img/office.png" class="img-circle elevation-2" alt="Site Image" style="width:200px;"> -->
+                                    <!-- {{user.entity_code}} {{user.employment_status}} <br>
+                                    {{user.employee_subgroup}} <br>
+                                    {{user.position}}</p> -->
+                                <!-- <p class="text-muted text-center">North Luzon FFOS</p> -->
+                                <!-- <ul class="list-group list-group-unbordered mb-3" style="font-size: 12px;">
+                                    <li class="list-group-item">
+                                        <b>Date Hired</b> <a class="float-right">12/01/2013</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Date of Birth</b> <a class="float-right">07/29/1992</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Gender</b> <a class="float-right">Male</a>
+                                    </li>
+                                </ul> -->
+                                <!-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> -->
+                            <!-- </div> -->
+                        
+                        <!-- </div> -->
+<!--                         
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Basic Info</h3>
+                            </div>
+                            
+                            <div class="card-body">
+                                <strong>Site ID</strong>:  
+                                <br>
+                                <strong>Name</strong>: 
+                                <br>
+                                <strong>Type</strong>: 
+                                <br>
+                                <strong>Status</strong>: {{siteRaw.status}} 
+                                <br>
+                                <strong>Area</strong>: {{siteRaw.area_name}} 
+                                <br>
+            
+          
+                            </div>
+                        </div> -->
+
+
+                        <!-- Widget: user widget style 2 -->
+                            <div class="card card-widget widget-user-2">
+                                <!-- Add the bg color to the header using any of the bg-* classes -->
+                                <div class="widget-user-header bg-warning">
+                                <div class="widget-user-image">
+                                    <img class="img-circle elevation-2" src="assets/img/office.png" alt="User Avatar">
+                                </div>
+                                <!-- /.widget-user-image -->
+                                <h4 class="widget-user-username">{{siteRaw.code}} </h4>
+                                <h5 class="widget-user-desc">{{siteRaw.name}} </h5>
+                                </div>
+                                <div class="card-footer p-0">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                    <a class="nav-link">
+                                        Type <span class="float-right badge bg-primary">{{siteRaw.site_category_name}} </span>
+                                    </a>
+                                    </li>
+                                    <li class="nav-item">
+                                    <a class="nav-link">
+                                        Status <span class="float-right badge bg-info">{{siteRaw.status}}</span>
+                                    </a>
+                                    </li>
+                                    <li class="nav-item">
+                                    <a class="nav-link">
+                                        Area <span class="float-right badge bg-success">{{siteRaw.area_name}}</span>
+                                    </a>
+                                    </li>
+                                    <!-- <li class="nav-item">
+                                    <a class="nav-link">
+                                        Sample reserve here <span class="float-right badge bg-danger">842</span>
+                                    </a>
+                                    </li> -->
+                                </ul>
+                                </div>
+                            </div>
+                        <!-- /.widget-user -->
+                    
+                    </div>
+                    
+                    <div class="col-md-9">
+                        <div class="card">
+
+                            <div class="ribbon-wrapper">
+                                <div class="ribbon bg-info">
+                                    Rectifier
+                                </div>
+                            </div>
+    
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div class="active tab-pane" id="members">
+    
+
+                                        <table class="row-border hover" class="table table-striped table-bordered" style="width:100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Manufacturer</th>
+                                                    <th>Rectifier</th>
+                                                    <th>Index No</th>
+                                                    <th>Model</th>
+                                                    <th>Maintainer</th>
+                                                    <th>Status</th>
+                                                    <th>Date Installed</th>
+                                                    <th>Date Accepted</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody *ngIf="siteData.rectifier.length>0">
+                                                <tr *ngFor="let rectifier of siteData.rectifier">
+                                                    <td [innerHTML]="rectifier.manufacturer_name"> </td>
+                                                    <td [innerHTML]="rectifier.rectifier_name"> </td>
+                                                    <td [innerHTML]="rectifier.index_no"> </td>
+                                                    <td [innerHTML]="rectifier.model"> </td>
+                                                    <td [innerHTML]="rectifier.maintainer"> </td>
+                                                    <td [innerHTML]="rectifier.status"> </td>
+                                                    <td [innerHTML]="rectifier.date_installed"> </td>
+                                                    <td [innerHTML]="rectifier.date_accepted"> </td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody *ngIf="siteData.rectifier.length==0">
+                                                <tr>
+                                                    <td colspan="8" class="no-data-available text-center">No data available</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                       
+                                        
+                                    </div>
+                                    
+                                </div>
+                            
+                            </div>
+                        </div>
+
+                        <!-- battery card -->
+    
+                        <div class="card">
+
+                            <div class="ribbon-wrapper">
+                                <div class="ribbon bg-info">
+                                    Battery
+                                </div>
+                            </div>
+    
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div class="active tab-pane" id="members">
+
+                                        <table class="row-border hover" class="table table-striped table-bordered" style="width:100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Manufacturer</th>
+                                                    <th>Battery</th>
+                                                    <th>Type</th>
+                                                    <th>Capacity</th>
+                                                    <th>Bank</th>
+                                                    <th>Status</th>
+                                                    <th>Date Installed</th>
+                                                    <th>Date Accepted</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody *ngIf="siteData.battery.length>0">
+                                                <tr *ngFor="let battery of siteData.battery">
+                                                    <td [innerHTML]="battery.manufacturer_name"> </td>
+                                                    <td [innerHTML]="battery.battery_name"> </td>
+                                                    <td [innerHTML]="battery.type"> </td>
+                                                    <td [innerHTML]="battery.capacity"> </td>
+                                                    <td [innerHTML]="battery.bank"> </td>
+                                                    <td [innerHTML]="battery.status"> </td>
+                                                    <td [innerHTML]="battery.date_installed"> </td>
+                                                    <td [innerHTML]="battery.date_accepted"> </td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody *ngIf="siteData.battery.length==0">
+                                                <tr>
+                                                    <td colspan="8" class="no-data-available text-center">No data available</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                       
+                                        
+                                    </div>
+                                    
+                                </div>
+                            
+                            </div>
+                        </div>
+
+                        <!-- end battery card -->
+
+                        <!-- ACU card -->
+                        <div class="card">
+
+                            <div class="ribbon-wrapper">
+                                <div class="ribbon bg-info">
+                                    ACU
+                                </div>
+                            </div>
+    
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div class="active tab-pane" id="members">
+
+                                        <table class="row-border hover" class="table table-striped table-bordered" style="width:100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Manufacturer</th>
+                                                    <!-- <th>Battery</th> -->
+                                                    <th>Brand</th>
+                                                    <th>Index No</th>
+                                                    <th>Model</th>
+                                                    <!-- <th>Maintainer</th> -->
+                                                    <th>Status</th>
+                                                    <th>Date Installed</th>
+                                                    <th>Date Accepted</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody *ngIf="siteData.acu.length>0">
+                                                <tr *ngFor="let acu of siteData.acu">
+                                                    <td [innerHTML]="acu.manufacturer_name"> </td>
+                                                    <!-- <td [innerHTML]="acu.acu_name"> </td> -->
+                                                    <td [innerHTML]="acu.brand"> </td>
+                                                    <td [innerHTML]="acu.index_no"> </td>
+                                                    <td [innerHTML]="acu.model"> </td>
+                                                    <!-- <td [innerHTML]="acu.maintainer"> </td> -->
+                                                    <td [innerHTML]="acu.status"> </td>
+                                                    <td [innerHTML]="acu.date_installed"> </td>
+                                                    <td [innerHTML]="acu.date_accepted"> </td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody *ngIf="siteData.acu.length==0">
+                                                <tr>
+                                                    <td colspan="8" class="no-data-available text-center">No data available</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                       
+                                        
+                                    </div>
+                                    
+                                </div>
+                            
+                            </div>
+                        </div>
+                        <!-- end ACU card -->
+
+                        <!-- Genset card -->
+                        <div class="card">
+
+                            <div class="ribbon-wrapper">
+                                <div class="ribbon bg-info">
+                                    Genset
+                                </div>
+                            </div>
+    
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div class="active tab-pane" id="members">
+
+                                        <table class="row-border hover" class="table table-striped table-bordered" style="width:100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Manufacturer</th>
+                                                    <!-- <th>Battery</th> -->
+                                                    <th>Brand</th>
+                                                    <th>Index No</th>
+                                                    <th>Model</th>
+                                                    <!-- <th>Maintainer</th> -->
+                                                    <th>Status</th>
+                                                    <th>Date Installed</th>
+                                                    <th>Date Accepted</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody *ngIf="siteData.genset.length>0">
+                                                <tr *ngFor="let genset of siteData.genset">
+                                                    <td [innerHTML]="genset.manufacturer_name"> </td>
+                                                    <!-- <td [innerHTML]="genset.genset_name"> </td> -->
+                                                    <td [innerHTML]="genset.brand"> </td>
+                                                    <td [innerHTML]="genset.index_no"> </td>
+                                                    <td [innerHTML]="genset.model"> </td>
+                                                    <!-- <td [innerHTML]="genset.maintainer"> </td> -->
+                                                    <td [innerHTML]="genset.status"> </td>
+                                                    <td [innerHTML]="genset.date_installed"> </td>
+                                                    <td [innerHTML]="genset.date_accepted"> </td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody *ngIf="siteData.genset.length==0">
+                                                <tr>
+                                                    <td colspan="8" class="no-data-available text-center">No data available</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                       
+                                        
+                                    </div>
+                                    
+                                </div>
+                            
+                            </div>
+                        </div>
+                        <!-- end Genset card -->
+
+                        <!-- NE card -->
+                        <div class="card">
+
+                            <div class="ribbon-wrapper">
+                                <div class="ribbon bg-info">
+                                    Network Element
+                                </div>
+                            </div>
+    
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div class="active tab-pane" id="members">
+
+                                        <table class="row-border hover" class="table table-striped table-bordered" style="width:100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Manufacturer</th>
+                                                    <th>Type</th>
+                                                    <!-- <th>Brand</th> -->
+                                                    <!-- <th>Index No</th> -->
+                                                    <th>Model</th>
+                                                    <!-- <th>Maintainer</th> -->
+                                                    <th>Status</th>
+                                                    <th>Date Installed</th>
+                                                    <th>Date Accepted</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody *ngIf="siteData.network_element.length>0">
+                                                <tr *ngFor="let network_element of siteData.network_element">
+                                                    <td [innerHTML]="network_element.name"> </td>
+                                                    <td [innerHTML]="network_element.manufacturer_name"> </td>
+                                                    <td [innerHTML]="network_element.type_name"> </td>
+                                                    <!-- <td [innerHTML]="network_element.brand"> </td> -->
+                                                    <!-- <td [innerHTML]="network_element.index_no"> </td> -->
+                                                    <td [innerHTML]="network_element.model"> </td>
+                                                    <!-- <td [innerHTML]="network_element.maintainer"> </td> -->
+                                                    <td [innerHTML]="network_element.status"> </td>
+                                                    <td [innerHTML]="network_element.date_installed"> </td>
+                                                    <td [innerHTML]="network_element.date_accepted"> </td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody *ngIf="siteData.network_element.length==0">
+                                                <tr>
+                                                    <td colspan="8" class="no-data-available text-center">No data available</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                       
+                                        
+                                    </div>
+                                    
+                                </div>
+                            
+                            </div>
+                        </div>
+                        <!-- end NE card -->
+      
+    
+                    
+                    </div>
+                
+                </div>
+                
+         
+    
+        </div>
+    </ng-template>
+
+    <app-footer></app-footer>
+<!-- ./wrapper -->
+<router-outlet></router-outlet>

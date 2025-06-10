@@ -1,0 +1,584 @@
+<div class="wrapper"></div>
+
+<!-- Preloader -->
+<!-- <div class="preloader flex-column justify-content-center align-items-center">
+      <img class="animation__wobble" src="assets/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    </div> -->
+
+<!-- Navbar -->
+<app-header></app-header>
+<!-- /.navbar -->
+
+<!-- Main Sidebar Container -->
+<app-sidebar></app-sidebar>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">PRIMARY OSPM 
+                        &nbsp;&nbsp;&nbsp;
+                        
+                    </h1>
+                    
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <select class="btn btn-default">
+                        <option value="">--SELECT REGION--</option>
+                        <option value="">NEMM</option>
+                        <option value="">SWMM</option>
+                        <option value="ospm/division">NL</option>
+                        <option value="">SL</option>
+                        <option value="">VIS</option>
+                        <option value="">MIN</option>
+                    </select>
+
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">OSPM</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+            <!-- Info boxes -->
+            <div class="row">
+
+                <!-- /.col -->
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box mb-3">
+                        <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-arrow-up"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">MTTR</span>
+                            <span class="info-box-number">7.93</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+
+                
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box mb-3">
+                        
+                        <i class="fas fa-ticket"></i>
+                        <i class="fa-solid fas fa-ticket"></i>
+
+                        <span class="info-box-icon bg-success elevation-1"><i class="far fa-bell"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Total Tickets</span>
+                            <span class="info-box-number">6,576</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-thumbs-up"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Completed</span>
+                            <span class="info-box-number">
+                                6,538
+                                <!-- <small>%</small> -->
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box mb-3">
+                        
+                        <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-wrench"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Open</span>
+                            <span class="info-box-number">38</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+
+                <!-- fix for small devices only -->
+                <div class="clearfix hidden-md-up"></div>
+
+                
+            </div>
+            <!-- /.row -->
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart 
+                                [series]="chartOptions.series!" 
+                                [chart]="chartOptions.chart!" 
+                                [yaxis]="chartOptions.yaxis!"
+                                [xaxis]="chartOptions.xaxis!" 
+                                [labels]="chartOptions.labels!" 
+                                [stroke]="chartOptions.stroke!"
+                                [title]="chartOptions.title!" 
+                                [dataLabels]="chartOptions.dataLabels!" 
+                                [fill]="chartOptions.fill!"
+                                [tooltip]="chartOptions.tooltip!">
+                            </apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart 
+                                [series]="chartOptionsFibercom.series!" 
+                                [chart]="chartOptionsFibercom.chart!" 
+                                [yaxis]="chartOptionsFibercom.yaxis!"
+                                [xaxis]="chartOptionsFibercom.xaxis!" 
+                                [labels]="chartOptionsFibercom.labels!" 
+                                [stroke]="chartOptionsFibercom.stroke!"
+                                [title]="chartOptionsFibercom.title!" 
+                                [dataLabels]="chartOptionsFibercom.dataLabels!" 
+                                [fill]="chartOptionsFibercom.fill!"
+                                [tooltip]="chartOptionsFibercom.tooltip!">
+                            </apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart 
+                                [series]="chartOptionsNEMM.series!" 
+                                [chart]="chartOptionsNEMM.chart!" 
+                                [yaxis]="chartOptionsNEMM.yaxis!"
+                                [xaxis]="chartOptionsNEMM.xaxis!" 
+                                [labels]="chartOptionsNEMM.labels!" 
+                                [stroke]="chartOptionsNEMM.stroke!"
+                                [title]='chartOptionsNEMM.title!' 
+                                [dataLabels]="chartOptionsNEMM.dataLabels!" 
+                                [fill]="chartOptionsNEMM.fill!"
+                                [tooltip]="chartOptionsNEMM.tooltip!">
+                            </apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart
+                            [series]="chartOptionsNemmBar.series!"
+                            [chart]="chartOptionsNemmBar.chart!"
+                            [dataLabels]="chartOptionsNemmBar.dataLabels!"
+                            [plotOptions]="chartOptionsNemmBar.plotOptions!"
+                            [yaxis]="chartOptionsNemmBar.yaxis!"
+                            [legend]="chartOptionsNemmBar.legend!"
+                            [fill]="chartOptionsNemmBar.fill!"
+                            [stroke]="chartOptionsNemmBar.stroke!"
+                            [tooltip]="chartOptionsNemmBar.tooltip!"
+                            [xaxis]="chartOptionsNemmBar.xaxis!"
+                            [title]="chartOptionsNemmBar.title!"
+                          ></apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart
+                                [series]="chartOptionsNemmDonut.series!"
+                                [chart]="chartOptionsNemmDonut.chart!"
+                                [labels]="chartOptionsNemmDonut.labels!"
+                                [legend]="chartOptionsNemmDonut.legend!"
+                                [title]="chartOptionsNemmDonut.title!"
+                                [responsive]="chartOptionsNemmDonut.responsive!"
+                            ></apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart 
+                                [series]="chartOptionsSWMM.series!" 
+                                [chart]="chartOptionsNEMM.chart!" 
+                                [yaxis]="chartOptionsNEMM.yaxis!"
+                                [xaxis]="chartOptionsNEMM.xaxis!" 
+                                [labels]="chartOptionsNEMM.labels!" 
+                                [stroke]="chartOptionsNEMM.stroke!"
+                                [title]="chartOptionsSWMM.title!" 
+                                [dataLabels]="chartOptionsNEMM.dataLabels!" 
+                                [fill]="chartOptionsNEMM.fill!"
+                                [tooltip]="chartOptionsNEMM.tooltip!">
+                            </apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart
+                            [series]="chartOptionsNemmBar.series!"
+                            [chart]="chartOptionsNemmBar.chart!"
+                            [dataLabels]="chartOptionsNemmBar.dataLabels!"
+                            [plotOptions]="chartOptionsNemmBar.plotOptions!"
+                            [yaxis]="chartOptionsNemmBar.yaxis!"
+                            [legend]="chartOptionsNemmBar.legend!"
+                            [fill]="chartOptionsNemmBar.fill!"
+                            [stroke]="chartOptionsNemmBar.stroke!"
+                            [tooltip]="chartOptionsNemmBar.tooltip!"
+                            [xaxis]="chartOptionsNemmBar.xaxis!"
+                            [title]="chartOptionsNL.title!"
+                          ></apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart
+                                [series]="chartOptionsNemmDonut.series!"
+                                [chart]="chartOptionsNemmDonut.chart!"
+                                [labels]="chartOptionsNemmDonut.labels!"
+                                [legend]="chartOptionsNemmDonut.legend!"
+                                [title]="chartOptionsNemmDonut.title!"
+                                [responsive]="chartOptionsNemmDonut.responsive!"
+                            ></apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+
+
+                
+               
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart 
+                                [series]="chartOptionsNL.series!" 
+                                [chart]="chartOptionsNEMM.chart!" 
+                                [yaxis]="chartOptionsNEMM.yaxis!"
+                                [xaxis]="chartOptionsNEMM.xaxis!" 
+                                [labels]="chartOptionsNEMM.labels!" 
+                                [stroke]="chartOptionsNEMM.stroke!"
+                                [title]="chartOptionsNL.title!" 
+                                [dataLabels]="chartOptionsNEMM.dataLabels!" 
+                                [fill]="chartOptionsNEMM.fill!"
+                                [tooltip]="chartOptionsNEMM.tooltip!">
+                            </apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart
+                            [series]="chartOptionsNemmBar.series!"
+                            [chart]="chartOptionsNemmBar.chart!"
+                            [dataLabels]="chartOptionsNemmBar.dataLabels!"
+                            [plotOptions]="chartOptionsNemmBar.plotOptions!"
+                            [yaxis]="chartOptionsNemmBar.yaxis!"
+                            [legend]="chartOptionsNemmBar.legend!"
+                            [fill]="chartOptionsNemmBar.fill!"
+                            [stroke]="chartOptionsNemmBar.stroke!"
+                            [tooltip]="chartOptionsNemmBar.tooltip!"
+                            [xaxis]="chartOptionsNemmBar.xaxis!"
+                            [title]="chartOptionsNemmBar.title!"
+                          ></apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart
+                                [series]="chartOptionsNemmDonut.series!"
+                                [chart]="chartOptionsNemmDonut.chart!"
+                                [labels]="chartOptionsNemmDonut.labels!"
+                                [legend]="chartOptionsNemmDonut.legend!"
+                                [title]="chartOptionsNemmDonut.title!"
+                                [responsive]="chartOptionsNemmDonut.responsive!"
+                            ></apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+
+
+                
+               
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart 
+                                [series]="chartOptionsSL.series!" 
+                                [chart]="chartOptionsNEMM.chart!" 
+                                [yaxis]="chartOptionsNEMM.yaxis!"
+                                [xaxis]="chartOptionsNEMM.xaxis!" 
+                                [labels]="chartOptionsNEMM.labels!" 
+                                [stroke]="chartOptionsNEMM.stroke!"
+                                [title]="chartOptionsSL.title!" 
+                                [dataLabels]="chartOptionsNEMM.dataLabels!" 
+                                [fill]="chartOptionsNEMM.fill!"
+                                [tooltip]="chartOptionsNEMM.tooltip!">
+                            </apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart
+                            [series]="chartOptionsNemmBar.series!"
+                            [chart]="chartOptionsNemmBar.chart!"
+                            [dataLabels]="chartOptionsNemmBar.dataLabels!"
+                            [plotOptions]="chartOptionsNemmBar.plotOptions!"
+                            [yaxis]="chartOptionsNemmBar.yaxis!"
+                            [legend]="chartOptionsNemmBar.legend!"
+                            [fill]="chartOptionsNemmBar.fill!"
+                            [stroke]="chartOptionsNemmBar.stroke!"
+                            [tooltip]="chartOptionsNemmBar.tooltip!"
+                            [xaxis]="chartOptionsNemmBar.xaxis!"
+                            [title]="chartOptionsNemmBar.title!"
+                          ></apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart
+                                [series]="chartOptionsNemmDonut.series!"
+                                [chart]="chartOptionsNemmDonut.chart!"
+                                [labels]="chartOptionsNemmDonut.labels!"
+                                [legend]="chartOptionsNemmDonut.legend!"
+                                [title]="chartOptionsNemmDonut.title!"
+                                [responsive]="chartOptionsNemmDonut.responsive!"
+                            ></apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+
+
+                
+               
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart 
+                                [series]="chartOptionsVIS.series!" 
+                                [chart]="chartOptionsNEMM.chart!" 
+                                [yaxis]="chartOptionsNEMM.yaxis!"
+                                [xaxis]="chartOptionsNEMM.xaxis!" 
+                                [labels]="chartOptionsNEMM.labels!" 
+                                [stroke]="chartOptionsNEMM.stroke!"
+                                [title]="chartOptionsVIS.title!" 
+                                [dataLabels]="chartOptionsNEMM.dataLabels!" 
+                                [fill]="chartOptionsNEMM.fill!"
+                                [tooltip]="chartOptionsNEMM.tooltip!">
+                            </apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart
+                            [series]="chartOptionsNemmBar.series!"
+                            [chart]="chartOptionsNemmBar.chart!"
+                            [dataLabels]="chartOptionsNemmBar.dataLabels!"
+                            [plotOptions]="chartOptionsNemmBar.plotOptions!"
+                            [yaxis]="chartOptionsNemmBar.yaxis!"
+                            [legend]="chartOptionsNemmBar.legend!"
+                            [fill]="chartOptionsNemmBar.fill!"
+                            [stroke]="chartOptionsNemmBar.stroke!"
+                            [tooltip]="chartOptionsNemmBar.tooltip!"
+                            [xaxis]="chartOptionsNemmBar.xaxis!"
+                            [title]="chartOptionsNemmBar.title!"
+                          ></apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart
+                                [series]="chartOptionsNemmDonut.series!"
+                                [chart]="chartOptionsNemmDonut.chart!"
+                                [labels]="chartOptionsNemmDonut.labels!"
+                                [legend]="chartOptionsNemmDonut.legend!"
+                                [title]="chartOptionsNemmDonut.title!"
+                                [responsive]="chartOptionsNemmDonut.responsive!"
+                            ></apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+
+
+                
+               
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart 
+                                [series]="chartOptionsMIN.series!" 
+                                [chart]="chartOptionsNEMM.chart!" 
+                                [yaxis]="chartOptionsNEMM.yaxis!"
+                                [xaxis]="chartOptionsNEMM.xaxis!" 
+                                [labels]="chartOptionsNEMM.labels!" 
+                                [stroke]="chartOptionsNEMM.stroke!"
+                                [title]="chartOptionsMIN.title!" 
+                                [dataLabels]="chartOptionsNEMM.dataLabels!" 
+                                [fill]="chartOptionsNEMM.fill!"
+                                [tooltip]="chartOptionsNEMM.tooltip!">
+                            </apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart
+                            [series]="chartOptionsNemmBar.series!"
+                            [chart]="chartOptionsNemmBar.chart!"
+                            [dataLabels]="chartOptionsNemmBar.dataLabels!"
+                            [plotOptions]="chartOptionsNemmBar.plotOptions!"
+                            [yaxis]="chartOptionsNemmBar.yaxis!"
+                            [legend]="chartOptionsNemmBar.legend!"
+                            [fill]="chartOptionsNemmBar.fill!"
+                            [stroke]="chartOptionsNemmBar.stroke!"
+                            [tooltip]="chartOptionsNemmBar.tooltip!"
+                            [xaxis]="chartOptionsNemmBar.xaxis!"
+                            [title]="chartOptionsNemmBar.title!"
+                          ></apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Mixed Charts -->
+                            <apx-chart
+                                [series]="chartOptionsNemmDonut.series!"
+                                [chart]="chartOptionsNemmDonut.chart!"
+                                [labels]="chartOptionsNemmDonut.labels!"
+                                [legend]="chartOptionsNemmDonut.legend!"
+                                [title]="chartOptionsNemmDonut.title!"
+                                [responsive]="chartOptionsNemmDonut.responsive!"
+                            ></apx-chart>
+                            <!-- Mixed Charts -->
+                        </div>
+                    </div>
+                </div>
+
+
+                
+               
+            </div>
+
+        </div><!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
+
+<!-- Main Footer -->
+<!-- <footer class="main-footer">
+<strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+All rights reserved.
+<div class="float-right d-none d-sm-inline-block">
+    <b>Version</b> 3.2.0
+</div>
+</footer> -->
+
+<!-- ./wrapper -->
+<router-outlet></router-outlet>

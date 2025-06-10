@@ -1,0 +1,158 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="#" class="brand-link">
+    <img src="assets/img/AdminLTELogo.png" alt="SF Portal" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <span class="brand-text font-weight-light">SF Portal</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+        <img src="assets/img/avatar.png" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+        <a href="#" class="d-block" [innerHTML]="userInfo"></a>
+        </div>
+    </div>
+
+    <!-- SidebarSearch Form -->
+    <div class="form-inline">
+        <div class="input-group" data-widget="sidebar-search">
+        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+        <div class="input-group-append">
+            <button class="btn btn-sidebar">
+            <i class="fas fa-search fa-fw"></i>
+            </button>
+        </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    
+    <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
+            with font-awesome or any other icon font library -->
+
+            <li class="nav-item">
+                <a href="#" class="nav-link"> 
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                        Dashboard
+                    <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" routerLink="/dashboard/main">
+                            <i class="nav-icon fas fa-chart-bar"></i>
+                            <p>Main Dashboard</p>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-open">
+                        <a href="#" class="nav-link active" routerLink="/dashboard/battery">
+                            <i class="nav-icon fas fa-chart-bar"></i>
+                            <p>Battery Dashboard</p>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-open">
+                        <a href="#" class="nav-link" routerLink="/dashboard/site">
+                            <i class="nav-icon fas fa-chart-bar"></i>
+                            <p>Site Dashboard</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            
+            <!-- <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                    Dashboard
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+        </li> -->
+        <li class="nav-item">
+            <a href="#" class="nav-link" routerLink="/dashboard/alarms">
+                <i class="nav-icon far fa-bell"></i>
+                <p>
+                    Alarms
+                    <span class="right badge badge-danger">6</span>
+                </p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="#" class="nav-link" routerLink="/site">
+            <i class="nav-icon far fa-building"></i>
+            <p>Sites</p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="#" class="nav-link" routerLink="/network-element">
+            <i class="nav-icon fas fa-server"></i>
+            <p>Network Elements</p>
+            </a>
+        </li>
+
+
+        <li class="nav-item">
+            <a href="#" class="nav-link"> 
+                <i class="nav-icon fas fa-handshake"></i>
+                <p>
+                Support Facilities
+                <i class="fas fa-angle-left right"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="#" class="nav-link" routerLink="/sf/battery">
+                    <i class="nav-icon fas fa-battery-full"></i>
+                    <p class="text">Battery</p>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="#" class="nav-link" routerLink="/sf/rectifier">
+                    <i class="nav-icon fas fa-pallet"></i>
+                    <p>Rectifier</p>
+                    </a>
+                </li>
+        
+                <li class="nav-item">
+                    <a href="#" class="nav-link" routerLink="/sf/acu">
+                    <i class="nav-icon fas fa-wind"></i>
+                    <p>ACU</p>
+                    </a>
+                </li>
+        
+                <li class="nav-item">
+                    <a href="#" class="nav-link" routerLink="/sf/dc-panel">
+                    <i class="nav-icon fas fa-bolt"></i>
+                    <p>DC Panel</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link" routerLink="/sf/genset">
+                    <i class="nav-icon fas fa-bolt"></i>
+                    <p>Genset</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        
+
+        </ul>
+    </nav>
+    
+    <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

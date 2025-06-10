@@ -1,0 +1,381 @@
+<div class="wrapper"></div>
+
+<!-- Preloader -->
+<!-- <div class="preloader flex-column justify-content-center align-items-center">
+<img class="animation__wobble" src="assets/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+</div> -->
+
+<!-- Navbar -->
+<app-header></app-header>
+<!-- /.navbar -->
+
+<!-- Main Sidebar Container -->
+<app-sidebar></app-sidebar>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-sm-6">
+        <h1 class="m-0">OSPM</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">OSPM</li>
+        </ol>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <button type="button" class="btn btn-sm btn-primary" (click)="add(addOspmModal)"> <i class="fa fa-plus-square" aria-hidden="true"></i> ADD NEW </button>  &nbsp;
+                            <button type="button" class="btn btn-sm btn-success" (click)="downloadFile('export', 'Ospm List')"><i class="fa fa-download" aria-hidden="true"></i> EXPORT</button>
+                            <br>
+                            <br>
+                            <table datatable [dtOptions]="dtOptions" class="row-border hover" class="table table-striped table-bordered" style="width:100%;">
+                                <tbody *ngIf="model?.length != 0">
+                                    <tr *ngFor="let ospm of model">
+                                    <td>{{ ospm.work_order_no }}</td>
+                                    <td>{{ ospm.status }}</td>
+                                    <td>{{ ospm.severity }}</td>
+                                    <td>{{ ospm.company }}</td>
+                                    <td>{{ ospm.region }}</td>
+                                    <td>{{ ospm.division }}</td>
+                                    <td>{{ ospm.section }}</td>
+                                    <td>{{ ospm.contractor }}</td>
+                                    <td>{{ ospm.sub_contractor }}</td>
+                                    <td>{{ ospm.endorsed_at }}</td>
+                                    <td>{{ ospm.service_restored_at }}</td>
+                                    <td>{{ ospm.mttr_service_restored }}</td>
+                                    <td>{{ ospm.mttr_service_restored_sla }}</td>
+                                    <td>{{ ospm.full_link_restored_at }}</td>
+                                    <td>{{ ospm.mttr_full_link_restored }}</td>
+                                    <td>{{ ospm.mttr_full_link_restored_sla }}</td>
+                                    <td>{{ ospm.ageing_service_restored }}</td>
+                                    <td [innerHTML]="ospm.ageing_service_restored_group"></td>
+
+                                    
+                                    <td class="text-center">
+                                        <a  [routerLink]="" (click)="edit(editOspmModal, ospm)">&nbsp; <i class="fas fa-pencil-alt"> </i> </a> 
+                                        <a  [routerLink]="" (click)="remove(ospm)"> <i class="fas fa-trash-alt"> </i> </a> 
+                                    </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/. container-fluid -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Modal area--> 
+
+<ng-template #addOspmModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="editProfileLabel">Add WO#</h5>
+        <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+        
+    <div class="modal-body">
+        <form [formGroup]="ospmForm" (ngSubmit)="onSubmitSave()">
+
+            <div class="row">
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Work Order #</label>
+                        <input type="text" class="form-control" formControlName="work_order_no" id="work_order_no" required="true">
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select class="form-control" formControlName="status" id="status" placeholder="Select Status">
+                            <option [value]=null>Select Status</option>
+                            <option value='Ongoing'>Ongoing</option>
+                            <option value='Completed'>Completed</option>
+                            <option value='Cancelled'>Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Severity</label>
+                        <select class="form-control" formControlName="severity" id="severity" placeholder="Select Severity">
+                            <option [value]=null>Select Serverity</option>
+                            <option value='SA'>Service Affecting</option>
+                            <option value='NSA'>Non-Service Affecting</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Endorsed Date</label>
+                        <input type="datetime-local" class="form-control" formControlName="endorsed_at" id="endorsed_at" required="true">
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Service Restored Date</label>
+                        <input type="datetime-local" class="form-control" formControlName="service_restored_at" id="service_restored_at" required="true">
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Full Link Restored Date</label>
+                        <input type="datetime-local" class="form-control" formControlName="full_link_restored_at" id="full_link_restored_at" required="true">
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Company</label>
+                        <select class="form-control" formControlName="company" id="company" placeholder="Select Company">
+                            <option [value]=null>Select Company</option>
+                            <option value='PLDT'>PLDT</option>
+                            <option value='SMART'>SMART</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Region</label>
+                        <select class="form-control" formControlName="region" id="region" placeholder="Select Region">
+                            <option [value]=null>Select Region</option>
+                            <option value='NEMM'>NEMM</option>
+                            <option value='SWMM'>SWMM</option>
+                            <option value='NLZ'>NLZ</option>
+                            <option value='SLZ'>SLZ</option>
+                            <option value='VIS'>VIZ</option>
+                            <option value='MIN'>MIN</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Division</label>
+                        <input type="text" class="form-control" formControlName="division" id="division" required="true">
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Section</label>
+                        <input type="text" class="form-control" formControlName="section" id="section" required="true">
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Contractor</label>
+                        <select class="form-control" formControlName="contractor" id="contractor" placeholder="Select Contractor">
+                            <option [value]=null>Select Contractor</option>
+                            <option value='UTECH'>UTECH</option>
+                            <option value='FIBERCOM'>FIBERCOM</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Sub Contractor</label>
+                        <input type="text" class="form-control" formControlName="sub_contractor" id="sub_contractor" required="true">
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Remarks</label>
+                        <textarea class="form-control" formControlName="remarks" id="remarks">
+                        </textarea>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm  btn-secondary" (click)="modal.dismiss()">Close</button>
+                <button type="submit" class="btn btn-sm  btn-primary">Save</button>
+            </div>
+        </form>
+
+    </div>
+</ng-template>
+
+
+
+<ng-template #editOspmModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="editProfileLabel">Edit Battery Details</h5>
+        <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+        
+    <div class="modal-body">
+        <form [formGroup]="ospmForm" (ngSubmit)="onSubmitUpdate()">
+
+            <div class="row">
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Work Order #</label>
+                        <input type="text" class="form-control" formControlName="work_order_no" id="work_order_no" required="true">
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select class="form-control" formControlName="status" id="status" placeholder="Select Status">
+                            <option [value]=null>Select Status</option>
+                            <option value='Ongoing'>Ongoing</option>
+                            <option value='Completed'>Completed</option>
+                            <option value='Cancelled'>Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Severity</label>
+                        <select class="form-control" formControlName="severity" id="severity" placeholder="Select Severity">
+                            <option [value]=null>Select Serverity</option>
+                            <option value='SA'>Service Affecting</option>
+                            <option value='NSA'>Non-Service Affecting</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Endorsed Date</label>
+                        <input type="datetime-local" class="form-control" formControlName="endorsed_at" id="endorsed_at" required="true">
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Service Restored Date</label>
+                        <input type="datetime-local" class="form-control" formControlName="service_restored_at" id="service_restored_at" required="true">
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Full Link Restored Date</label>
+                        <input type="datetime-local" class="form-control" formControlName="full_link_restored_at" id="full_link_restored_at" required="true">
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Company</label>
+                        <select class="form-control" formControlName="company" id="company" placeholder="Select Company">
+                            <option [value]=null>Select Company</option>
+                            <option value='PLDT'>PLDT</option>
+                            <option value='SMART'>SMART</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Region</label>
+                        <select class="form-control" formControlName="region" id="region" placeholder="Select Region">
+                            <option [value]=null>Select Region</option>
+                            <option value='NEMM'>NEMM</option>
+                            <option value='SWMM'>SWMM</option>
+                            <option value='NLZ'>NLZ</option>
+                            <option value='SLZ'>SLZ</option>
+                            <option value='VIS'>VIZ</option>
+                            <option value='MIN'>MIN</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Division</label>
+                        <input type="text" class="form-control" formControlName="division" id="division" required="true">
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Section</label>
+                        <input type="text" class="form-control" formControlName="section" id="section" required="true">
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Contractor</label>
+                        <select class="form-control" formControlName="contractor" id="contractor" placeholder="Select Contractor">
+                            <option [value]=null>Select Contractor</option>
+                            <option value='UTECH'>UTECH</option>
+                            <option value='FIBERCOM'>FIBERCOM</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Sub Contractor</label>
+                        <input type="text" class="form-control" formControlName="sub_contractor" id="sub_contractor" required="true">
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Remarks</label>
+                        <textarea class="form-control" formControlName="remarks" id="remarks">
+                        </textarea>
+                    </div>
+                </div>
+                
+            </div>
+
+        
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm  btn-secondary" (click)="modal.dismiss()">Close</button>
+                <button type="submit" class="btn btn-sm  btn-primary">Save</button>
+            </div>
+        </form>
+
+    </div>
+</ng-template>
+
+<!-- Modal area-->
+
+<app-footer></app-footer>
+<!-- ./wrapper -->
+<router-outlet></router-outlet>

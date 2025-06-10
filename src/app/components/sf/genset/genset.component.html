@@ -1,0 +1,378 @@
+<div class="wrapper"></div>
+
+    <!-- Preloader -->
+    <!-- <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__wobble" src="assets/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    </div> -->
+
+    <!-- Navbar -->
+    <app-header></app-header>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <app-sidebar></app-sidebar>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+            <h1 class="m-0">Genset</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Genset</li>
+            </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <button type="button" class="btn btn-sm btn-primary" (click)="add(addGensetModal)"> <i class="fa fa-plus-square" aria-hidden="true"></i> ADD NEW </button>
+                                <br>
+                                <br>
+                                <table datatable [dtOptions]="dtOptions" class="row-border hover" class="table table-striped table-bordered" style="width:100%;">
+                                    <tbody *ngIf="model?.length != 0">
+                                        <tr *ngFor="let genset of model">
+                                        <td>{{ genset.area_name }}</td>
+                                        <td>{{ genset.site_name }}</td>
+                                        <td>{{ genset.status }}</td>
+                                        <td>{{ genset.capacity }}</td>
+                                        <td>{{ genset.brand }}</td>
+                                        <td>{{ genset.model }}</td>
+                                        <!-- <td>{{ genset.index_no }}</td> -->
+                                        <!-- <td>{{ genset.capacity }}</td> -->
+                                        <td>{{ genset.date_installed }}</td> 
+                                        <td>{{ genset.date_accepted }}</td> 
+                                        <td class="text-center">
+                                            <a  [routerLink]="" (click)="edit(editGensetModal, genset)">&nbsp; <i class="fas fa-pencil-alt"> </i> </a> | 
+                                            <a  [routerLink]="" (click)="remove(genset)"> <i class="fas fa-trash-alt"> </i> </a> 
+                                        </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
+    </div>
+
+    <!-- /.content-wrapper -->
+
+    <!-- Modal area--> 
+    <ng-template #addGensetModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title" id="editProfileLabel">Add Genset</h5>
+            <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    
+            
+        <div class="modal-body">
+            <form [formGroup]="gensetForm" (ngSubmit)="onSubmitSave()">
+    
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Site</label><br>
+                            <ng-select2 style="width: 100%" class="form-control" formControlName="site_id" [options]="optionsSite" >
+                            </ng-select2>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Manufacturer</label>
+                            <ng-select2 style="width: 100%" class="form-control" formControlName="manufacturer" [options]="optionsManufacturer" >
+                            </ng-select2>
+                        </div>
+                    </div>
+    
+                    <!-- <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Serial No.</label>
+                            <input type="text" class="form-control" formControlName="serial_no" id="serial_no" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Index No.</label>
+                            <input type="text" class="form-control" formControlName="index_no" id="index_no" required="true">
+                        </div>
+                    </div> -->
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Model</label>
+                            <input type="text" class="form-control" formControlName="model" id="model" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Brand</label>
+                            <input type="text" class="form-control" formControlName="brand" id="brand" required="true">
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Capacity</label>
+                            <input type="text" class="form-control" formControlName="capacity" id="capacity" required="true">
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Rating</label>
+                            <input type="text" class="form-control" formControlName="rating" id="rating" required="true">
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Type</label>
+                            <input type="text" class="form-control" formControlName="type" id="type" required="true">
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select class="form-control" formControlName="status" id="status" placeholder="Select Status">
+                                <option [value]=null>Select Genset Status</option>
+                                <option value='Active'>Active</option>
+                                <option value='Inactive'>Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Percent Utilization</label>
+                            <input type="text" class="form-control" formControlName="percent_utilization" id="percent_utilization" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Owner</label>
+                            <input type="text" class="form-control" formControlName="owner" id="owner" required="true">
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Date Manufactured</label>
+                            <input type="date" class="form-control" formControlName="date_manufactured" id="date_manufactured" required="true">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Date Installed</label>
+                            <input type="date" class="form-control" formControlName="date_installed" id="date_installed" required="true">
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Date Accepted</label>
+                            <input type="date" class="form-control" formControlName="date_accepted" id="date_accepted" required="true">
+                        </div>
+                    </div>
+    
+                    <!-- <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Remarks</label>
+                            <textarea class="form-control" formControlName="remarks" id="remarks">
+                            </textarea>
+                        </div>
+                    </div> -->
+    
+                </div>
+    
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm  btn-secondary" (click)="modal.dismiss()">Close</button>
+                    <button type="submit" class="btn btn-sm  btn-primary">Save</button>
+                </div>
+            </form>
+    
+        </div>
+    </ng-template>
+
+    <ng-template #editGensetModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title" id="editProfileLabel">Edit Genset Details</h5>
+            <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+            
+        <div class="modal-body">
+            <form [formGroup]="gensetForm" (ngSubmit)="onSubmitUpdate()">
+    
+                <div class="row">
+                    <div class="row">
+                    
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Site</label><br>
+                                <ng-select2 style="width: 100%" class="form-control" formControlName="site_id" [data]="defaultSite" [options]="optionsSite" >
+                                </ng-select2>
+                            </div>
+                        </div>
+        
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Manufacturer</label>
+                                <ng-select2 style="width: 100%" class="form-control" formControlName="manufacturer" [data]="defaultManufacturer" [options]="optionsManufacturer" >
+                                </ng-select2>
+                            </div>
+                        </div>
+        
+                        <!-- <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Serial No.</label>
+                                <input type="text" class="form-control" formControlName="serial_no" id="serial_no" required="true">
+                            </div>
+                        </div>
+        
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Index No.</label>
+                                <input type="text" class="form-control" formControlName="index_no" id="index_no" required="true">
+                            </div>
+                        </div> -->
+        
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Model</label>
+                                <input type="text" class="form-control" formControlName="model" id="model" required="true">
+                            </div>
+                        </div>
+        
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Brand</label>
+                                <input type="text" class="form-control" formControlName="brand" id="brand" required="true">
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Capacity</label>
+                                <input type="text" class="form-control" formControlName="capacity" id="capacity" required="true">
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Rating</label>
+                                <input type="text" class="form-control" formControlName="rating" id="rating" required="true">
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Type</label>
+                                <input type="text" class="form-control" formControlName="type" id="type" required="true">
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select class="form-control" formControlName="status" id="status" placeholder="Select Status">
+                                    <option [value]=null>Select Genset Status</option>
+                                    <option value='Active'>Active</option>
+                                    <option value='Inactive'>Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+        
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Percent Utilization</label>
+                                <input type="text" class="form-control" formControlName="percent_utilization" id="percent_utilization" required="true">
+                            </div>
+                        </div>
+        
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Owner</label>
+                                <input type="text" class="form-control" formControlName="owner" id="owner" required="true">
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Date Manufactured</label>
+                                <input type="date" class="form-control" formControlName="date_manufactured" id="date_manufactured" required="true">
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Date Installed</label>
+                                <input type="date" class="form-control" formControlName="date_installed" id="date_installed" required="true">
+                            </div>
+                        </div>
+        
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Date Accepted</label>
+                                <input type="date" class="form-control" formControlName="date_accepted" id="date_accepted" required="true">
+                            </div>
+                        </div>
+        
+                        <!-- <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Status</label>
+                                <input type="text" class="form-control" formControlName="status" id="status" required="true">
+                            </div>
+                        </div>
+        
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Remarks</label>
+                                <textarea class="form-control" formControlName="remarks" id="remarks">
+                                </textarea>
+                            </div>
+                        </div> -->
+        
+                    </div>  
+                    
+                </div>
+    
+            
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm  btn-secondary" (click)="modal.dismiss()">Close</button>
+                    <button type="submit" class="btn btn-sm  btn-primary">Save</button>
+                </div>
+            </form>
+    
+        </div>
+    </ng-template>
+ 
+    <app-footer></app-footer>
+<!-- ./wrapper -->
+<router-outlet></router-outlet>
